@@ -3,7 +3,7 @@ import re
 import random
 from bs4 import BeautifulSoup
 
-def learn():
+def learn(voca):
     url = "https://tw.amazingtalker.com/blog/zh-tw/zh-eng/3747/"
     
     html = requests.get(url)
@@ -11,16 +11,19 @@ def learn():
     words = bs.find_all("td")
     num = random.randint(1, 1200)
     
-    for word in words:
-        text = word.text
-        # 使用正则表达式检测并删除包含 "-" 的部分
-        mod_text = re.sub(r'\(.*?-.*?\)', '', text).strip()
-        # 仅在 modified_text 不为空时打印
-        if mod_text:
-            part = mod_text.split('.')
-            if int(part[0]) == num:
-                # print(num)
-                print(part[1])
+    try:
+        for word in words:
+            text = word.text
+            # 使用正则表达式检测并删除包含 "-" 的部分
+            mod_text = re.sub(r'\(.*?-.*?\)', '', text).strip()
+            # 仅在 modified_text 不为空时打印
+            if mod_text:
+                part = mod_text.split('.')
+                if int(part[0]) == num:
+                    # print(num)
+                    return (part[1])
+    except:
+        return '錯誤，請稍候再試'
 
 
 # import requests
